@@ -1,9 +1,12 @@
 import React from "react";
 
 const Footer = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+
   return (
     <div>
-      <h3>This is Footer /Write year dynamically/</h3>
+      <p>Copyright &copy; {year} </p>
     </div>
   );
 };

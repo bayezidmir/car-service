@@ -18,8 +18,8 @@ const Experts = () => {
   ];
 
   return (
-    <div>
-      <div className="row mt-5 mx-auto justify-items-center">
+    <div className="container mx-auto">
+      <div className="row mt-5 ">
         {experts.map((expert) => (
           <Expert key={expert.id} data={expert} />
         ))}
