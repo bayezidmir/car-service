@@ -1,5 +1,5 @@
 .service-container {
-  max-width: 200px;
+  max-width: 350px;
   border: 1px solid rgba(128, 128, 128, 0.533);
   padding: 5px;
   border-radius: 10px;
@@ -8,4 +8,5 @@
 .service-container img {
   width: 100%;
   border-radius: 10px;
+  margin-bottom: 10px;
 }

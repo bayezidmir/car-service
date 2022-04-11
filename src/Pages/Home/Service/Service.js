@@ -7,8 +7,10 @@ const Service = ({ data }) => {
   return (
     <div className="service-container">
       <img src={img} alt="" />
-      <h4>{name}</h4>
-      <h6>{description}</h6>
+      <p>
+        <strong>{name}</strong>
+      </p>
+      <p>{description}</p>
       <h4>Price: {price}</h4>
       <button>Book Now</button>
     </div>
