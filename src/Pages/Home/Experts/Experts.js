@@ -18,7 +18,7 @@ const Experts = () => {
   ];
 
   return (
-    <div className="container mx-auto mt-5 ">
+    <div className="container mx-auto mt-5 " id="experts">
       <h2 className="text-primary">Our Experts</h2>
       <div className="row ">
         {experts.map((expert) => (
