@@ -1,19 +1,13 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../../../src/Images/logo.png";
 import auth from "../../../firebase.init";
+import useUser from "../../../Hooks/useUser";
 
 const Header = () => {
-  const [user, setUser] = useState();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user);
-      const uid = user.uid;
-    } else {
-    }
-  });
+  const [user, setUser] = useUser();
 
   const handleLogOut = () => {
     signOut(auth)

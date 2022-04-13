@@ -1,23 +1,27 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
+import SocialLogIn from "../../Shared/SocialLogIn/SocialLogIn";
 
 const Login = () => {
   const [user, setUser] = useState({ value: "", error: "" });
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser({ value: userCredential, error: "" });
+        navigate(from, { replace: true }); //Line to work on
       })
       .catch((errors) => {});
     setUser({ value: "", error: "There is something wrong" });
@@ -30,9 +34,6 @@ const Login = () => {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -56,6 +57,7 @@ const Login = () => {
           </Link>
         </p>
       </Form>
+      <SocialLogIn />
     </div>
   );
 };

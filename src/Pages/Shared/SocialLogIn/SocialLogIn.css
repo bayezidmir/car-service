@@ -1,0 +1,9 @@
+.line {
+  height: 1px;
+  width: 200px;
+  background-color: grey;
+}
+
+img {
+  width: 25px;
+}

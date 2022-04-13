@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import auth from "../../../firebase.init";
+import SocialLogIn from "../../Shared/SocialLogIn/SocialLogIn";
 import "./Register.css";
 
 const Register = () => {
@@ -44,6 +45,7 @@ const Register = () => {
           Please Login
         </Link>
       </p>
+      <SocialLogIn />
     </div>
   );
 };
