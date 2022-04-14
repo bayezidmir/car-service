@@ -1,4 +1,7 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -27,6 +30,17 @@ const Login = () => {
     setUser({ value: "", error: "There is something wrong" });
   };
 
+  const passwordReset = () => {
+    const email = emailRef.current.value;
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert`Password reset email sent`;
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
   return (
     <div>
       <h2>Please Login</h2>
@@ -44,17 +58,21 @@ const Login = () => {
             placeholder="Password"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
+
         <Button variant="warning" type="submit">
-          Submit
+          Sign In
         </Button>
-        <p>
+        <p className="mt-3">
           Do not have an Account?{" "}
-          <Link to="/register" className="text-danger text-decoration-none">
+          <Link to="/register" className="text-primary text-decoration-none ">
             Please Register
           </Link>
+        </p>
+        <p>
+          Forgot Password?{" "}
+          <span className="text-primary label btn" onClick={passwordReset}>
+            Reset Password
+          </span>
         </p>
       </Form>
       <SocialLogIn />
