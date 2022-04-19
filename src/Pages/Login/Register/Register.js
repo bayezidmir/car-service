@@ -1,39 +1,55 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import SocialLogIn from "../../Shared/SocialLogIn/SocialLogIn";
 import "./Register.css";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
+import { sendEmailVerification } from "firebase/auth";
+import Loading from "../../Shared/Loading/Loading";
+import PageTitle from "../../Shared/PageTitle/PageTitle";
 
 const Register = () => {
-  const [user, setUser] = useState("");
   const [terms, setTerms] = useState(false);
+  const [updateProfile] = useUpdateProfile(auth);
+  const navigate = useNavigate();
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-  const handleSignUp = (e) => {
+  if (user) {
+    console.log("user:", user);
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential);
-        console.log(userCredential.user);
-      })
-      .then((error) => {
-        setUser(error);
-      });
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName: name });
+
+    navigate("/");
   };
 
   return (
     <div className="container mx-auto w-50">
+      <PageTitle title="Register- Genius Car Service"></PageTitle>
       <h1>Register</h1>
       <form className="registration-form" onSubmit={handleSignUp}>
         <input type="text" name="name" id="" placeholder="Your Name" />
 
         <input type="email" name="email" id="" placeholder="Your Email" />
         <input type="password" name="password" id="" placeholder="Password" />
-        <div className="mb-3" controlId="formBasicCheckbox">
+
+        <div className="mb-3 ">
           {/* <Form.Check type="checkbox" label="Accept Terms & Condition" /> */}
 
           <input
@@ -52,6 +68,7 @@ const Register = () => {
         </div>
         <div>
           <input
+            disabled={!terms}
             type="submit"
             value="Sign Up"
             className="w-25 mx-auto bg-success btn btn-success"

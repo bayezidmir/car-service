@@ -7,6 +7,10 @@ import { Button, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import SocialLogIn from "../../Shared/SocialLogIn/SocialLogIn";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../Shared/Loading/Loading";
+import PageTitle from "../../Shared/PageTitle/PageTitle";
 
 const Login = () => {
   const [user, setUser] = useState({ value: "", error: "" });
@@ -32,18 +36,22 @@ const Login = () => {
 
   const passwordReset = () => {
     const email = emailRef.current.value;
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        alert`Password reset email sent`;
-      })
-      .catch((error) => {
-        alert(error);
-      });
+
+    if (email) {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          toast("email sent");
+        })
+        .catch((error) => {});
+    } else {
+      toast("Please enter email address");
+    }
   };
 
   return (
     <div>
       <h2>Please Login</h2>
+      <PageTitle title="Login- Genius Car Service"></PageTitle>
       <Form className="container w-50" onSubmit={handleLogin}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -70,12 +78,16 @@ const Login = () => {
         </p>
         <p>
           Forgot Password?{" "}
-          <span className="text-primary label btn" onClick={passwordReset}>
+          <button
+            className="text-primary label btn btn-link"
+            onClick={passwordReset}
+          >
             Reset Password
-          </span>
+          </button>
         </p>
       </Form>
       <SocialLogIn />
+      <ToastContainer />
     </div>
   );
 };
