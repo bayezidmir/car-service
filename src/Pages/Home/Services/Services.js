@@ -6,7 +6,8 @@ const Services = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch("services.json")
+    const url = `http://localhost:5000/service`;
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
@@ -20,7 +21,7 @@ const Services = () => {
       <hr />
       <div className="services-container">
         {services.map((service) => (
-          <Service data={service} key={service.id} />
+          <Service data={service} key={service._id} />
         ))}
       </div>
     </div>

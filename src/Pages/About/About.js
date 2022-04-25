@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import GoogleLocation from "../GoogleLocation/GoogleLocation";
 import PageTitle from "../Shared/PageTitle/PageTitle";
 
 const About = () => {
@@ -13,6 +14,9 @@ const About = () => {
       <div>
         <Outlet></Outlet>
       </div>
+
+      <h3> Our Store location</h3>
+      <GoogleLocation />
     </div>
   );
 };

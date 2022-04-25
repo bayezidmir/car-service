@@ -13,10 +13,13 @@ import Checkout from "./Pages/Checkout/Checkout/Checkout";
 import RequireAuth from "./Pages/Login/RequireAuth/RequireAuth";
 import Services from "./Pages/Home/Services/Services";
 import Company from "./Pages/About/Company";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

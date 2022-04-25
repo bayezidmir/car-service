@@ -19,10 +19,6 @@ const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-  if (user) {
-    console.log("user:", user);
-  }
-
   if (loading) {
     return <Loading />;
   }
