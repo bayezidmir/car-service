@@ -27,7 +27,6 @@ const RequireAuth = ({ children }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  console.log(user);
   //user.providerData[0].providerId === "password" -- this is to not ask email verification while doing social login
   if (user.providerData[0].providerId === "password" && !user.emailVerified) {
     return (
